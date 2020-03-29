@@ -28,7 +28,14 @@ const Form = () => {
     e.preventDefault();
     setStatus("PENDING");
 
-    setTimeout(() => setStatus("SUCCESS"), 1000);
+    fetch("/api/contact", {
+      method: "POST",
+      body: JSON.stringify(state)
+    })
+      .then(response => response.json())
+      .then(response => {
+        setStatus("SUCCESS");
+      });
   };
 
   const setStatus = status => dispatch({ type: "updateStatus", status });
